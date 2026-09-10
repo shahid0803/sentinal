@@ -89,6 +89,29 @@ app.get("/api/incidents", (_request, response) => {
   response.json({ incidents });
 });
 
+app.post("/api/analyze", (request, response) => {
+  const description = typeof request.body?.description === "string" ? request.body.description.trim() : "";
+  if (!description) {
+    response.status(400).json({ error: "description is required" });
+    return;
+  }
+  const text = description.toLowerCase();
+  const critical = ["life", "trapped", "fire", "unconscious", "weapon"].some((term) => text.includes(term));
+  const high = ["injury", "accident", "threat", "smoke"].some((term) => text.includes(term));
+  const severity = critical ? "critical" : high ? "high" : "moderate";
+  const duplicate = incidents.some((incident) => incident.description.toLowerCase() === text);
+  response.json({
+    classification: critical || high ? "emergency" : "incident",
+    severity,
+    confidence: critical ? 0.9 : high ? 0.78 : 0.65,
+    similarity: duplicate ? 1 : 0,
+    duplicate,
+    cluster: { id: critical ? "critical-response" : "general-response", incidentCount: duplicate ? 2 : 1 },
+    recommendedAction: critical ? "Escalate to operations immediately." : "Queue for operations review.",
+    mode: "deterministic-local",
+  });
+});
+
 app.get("/api/map", (_request, response) => {
   const incident = incidents[0] ?? null;
   if (!incident?.location) {
