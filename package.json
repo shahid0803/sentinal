@@ -1,0 +1,10 @@
+{
+  "name": "sentinel",
+  "private": true,
+  "workspaces": ["apps/web", "services/api", "services/x402"],
+  "scripts": {
+    "build": "npm run build --workspaces",
+    "lint": "npm run lint --workspaces",
+    "test": "npm run test --workspaces"
+  }
+}
