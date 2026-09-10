@@ -20,7 +20,7 @@ npm run start:api
 npm run dev
 ```
 
-Set `VITE_API_BASE_URL` if the API is not running on `http://localhost:8787`. The API exposes `GET /health`.
+Set `VITE_API_BASE_URL` if the API is not running on `http://localhost:8787`. The API exposes `GET /health`, `GET /api/incidents`, `GET /api/responders`, `GET /api/map`, deterministic `POST /api/analyze`, agent/demo routes, and the configuration-gated advanced-intelligence boundary.
 
 ## Optional x402 configuration
 

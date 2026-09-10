@@ -7,10 +7,11 @@ Connecting Help When Networks Fail.
 This repository contains the verified hackathon MVP:
 
 - `apps/web/` — React, TypeScript, and Vite emergency operations UI.
-- `services/api/` — Express API with SOS incidents, deterministic responder matching, offline/demo status, agent decisions, and configuration-gated x402 status.
-- `docs/COPILOT_INITIAL_AUDIT.md` — initial repository audit.
-
-The current checkout does not contain standalone AI, x402, shared-package, geospatial-package, offline-package, security-package, or integration directories. Those boundaries are represented as explicit placeholders or API behavior in the MVP and are documented in `RELEASE_CHECKLIST.md`.
+- `services/api/` — Express API with SOS incidents, deterministic responder matching, offline/demo status, agent decisions, deterministic analysis, and configuration-gated x402 status.
+- `services/ai/` — optional Python/FastAPI deterministic `/analyze` contract; external model dependencies are not installed by default.
+- `packages/shared/`, `packages/geospatial/`, `packages/offline/`, `packages/security/` — canonical reusable TypeScript primitives.
+- `integration/` — integration boundary documentation and smoke guidance.
+- `docs/` — audit, merge plan, release report, test report, and limitations.
 
 ## Run locally
 
@@ -27,6 +28,8 @@ npm run dev
 ```
 
 The API listens on `http://localhost:8787` by default. The frontend uses `VITE_API_BASE_URL` when provided and otherwise defaults to that URL. Copy `.env.example` to `.env` for local configuration; never commit `.env`.
+
+The API exposes `GET /health`, `GET /api/incidents`, and `GET /api/responders` for basic verification. It also exposes the existing SOS, map, offline/demo, agent, analysis, and configuration-gated x402 boundaries.
 
 ## Demo boundaries
 

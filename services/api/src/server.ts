@@ -89,6 +89,10 @@ app.get("/api/incidents", (_request, response) => {
   response.json({ incidents });
 });
 
+app.get("/api/responders", (_request, response) => {
+  response.json({ responders });
+});
+
 app.post("/api/analyze", (request, response) => {
   const description = typeof request.body?.description === "string" ? request.body.description.trim() : "";
   if (!description) {
